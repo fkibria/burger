@@ -1,29 +1,19 @@
-const orm = require("../config/orm");
+// Import the ORM to create functions that will interact with the database.
+const orm = require('../config/orm.js');
 
-module.exports = (app) => {
-    // Get all burgers
-    app.get('/api/all', (req, res) => {
-      
-        orm.selectAll((err, result) => {
-          if (err) throw err;
-          res.json(result);
-        });
-    });
-    // Add a burger
-    app.post('/api/:id', (req, res) => {
-      console.log(req.body);
-      const dbQuery =
-        'INSERT INTO burgers (burger_name, devoured) VALUES (?,?)';
-      connection.query(
-        dbQuery,
-        [req.body.burger_name, req.body.devoured],
-        (err, result) => {
-          if (err) throw err;
-          if (result) {
-            console.log('Burger Successfully Added!');
-            res.json(req.body);
-          }
-        }
-      );
-    });
-  };
+const burger = {
+  all(cb) {
+    orm.selectAll('burgers', (res) => cb(res));
+  },
+  // The variables cols and vals are arrays.
+  create(cols, vals, cb) {
+    orm.insertOne('burgers', cols, vals, (res) => cb(res));
+  },
+
+  update(objColVals, condition, cb) {
+    orm.updateOne('burgers', objColVals, condition, (res) => cb(res));
+  },
+};
+
+// Export the database functions for the controller (catsController.js).
+module.exports = burger;
