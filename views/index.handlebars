@@ -1,10 +1,11 @@
-<h1>EAT-DA-BURGER</h1>
+<h1 style="text-align: center;">EAT-DA-BURGER</h1>
 
 <h2>Burgers to eat!</h2>
 
 <ul>
   {{#each burgers}}
   {{#unless devoured}}
+  {{> burgers/burger-block devoured=false}}
   {{/unless}}
   {{/each}}
 </ul>
@@ -14,6 +15,7 @@
 <ul>
   {{#each burgers}}
   {{#if devoured}}
+  {{> burgers/burger-block devoured=true}}
   {{/if}}
   {{/each}}
 </ul>
@@ -23,14 +25,8 @@
 
   <div class="form-group">
     <label for="ca">Burger Name:</label>
-    <input type="text" id="ca" name="burger_name">
+    <input type="text" id="ca" name="name">
+    <button type="submit">Add Burger</button>
   </div>
 
-  <div class="form-group">
-    <label for="devoured">Another?</label><br>
-    <name="devoured" value="1" id="devoured" checked> Eaten!<br>
-    <name="devoured" value="0" id="eat"> Eat!
-  </div>
-
-  <button type="submit">Add Burger</button>
 </form>
