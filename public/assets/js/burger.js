@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
           const newDevoured = e.target.getAttribute('data-newdevoured');
   
           const newEatenState = {
-            devoured: newDevoured,
+            devoured: true,
           };
   
           fetch(`/api/burgers/${id}`, {
@@ -51,8 +51,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   
         // Grabs the value of the textarea that goes by the name, "quote"
         const newBurger = {
-          burger_name: document.getElementById('ca').value.trim(),
-          devoured: document.getElementById('devoured').checked,
+          burger_name: document.getElementById('ca').value.trim()
         };
   
         // Send POST request to create a new quote
@@ -75,5 +74,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
       });
     }
+
+    // DELETE
+  const deleteBurgerBtns = document.querySelectorAll('.delete-burger');
+
+  // Set up the event listeners for each delete button
+  deleteBurgerBtns.forEach((button) => {
+    button.addEventListener('click', (e) => {
+      const id = e.target.getAttribute('data-id');
+
+      // Send the delete request
+      fetch(`/api/burgers/${id}`, {
+        method: 'DELETE',
+      }).then((res) => {
+        console.log(res);
+        console.log(`Deleted burger: ${id}`);
+
+        // Reload the page
+        location.reload();
+      });
+    });
+  });
   
   });
