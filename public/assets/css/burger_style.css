@@ -1,7 +1,13 @@
+body {
+  background-color: rgb(241, 197, 50);
+}
+
+
 li {
     padding: 5px;
     margin: 5px;
     background: #faebd7;
+    max-width: max-content;
   }
   
   .label {
